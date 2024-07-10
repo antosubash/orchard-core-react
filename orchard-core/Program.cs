@@ -9,6 +9,18 @@ builder.Host.UseSerilog((hostingContext, configBuilder) =>
         .Enrich.FromLogContext();
     });
 
+// add cors 
+
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(
+        builder => builder
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowAnyOrigin()
+    );
+});
+
 builder.Services
     .AddOrchardCms()
     // // Orchard Specific Pipeline
@@ -17,6 +29,7 @@ builder.Services
     // .Configure( (app, routes, services) => {
     // })
 ;
+
 
 var app = builder.Build();
 
